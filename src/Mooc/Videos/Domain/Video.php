@@ -7,7 +7,8 @@ namespace CodelyTv\Mooc\Videos\Domain;
 use CodelyTv\Mooc\Shared\Domain\Courses\CourseId;
 use CodelyTv\Mooc\Shared\Domain\Videos\VideoUrl;
 use CodelyTv\Shared\Domain\Aggregate\AggregateRoot;
-use CodelyTv\Shared\Domain\ValueObject\Uuid;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactory;
 
 final class Video extends AggregateRoot
 {
@@ -32,7 +33,7 @@ final class Video extends AggregateRoot
         VideoUrl $url,
         CourseId $courseId
     ): Video {
-        $videoId = new VideoId(Uuid::random()->value());
+        $videoId = new VideoId(Uuid::uuid4()->toString());
         $video = new self($videoId, $type, $title, $url, $courseId);
 
         $video->record(
