@@ -14,3 +14,6 @@ vendor/
 .env
 
 build/
+.idea
+.env.local
+apps/*/*/var/

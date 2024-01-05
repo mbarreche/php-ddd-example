@@ -24,9 +24,9 @@ final class VideoCreator
         $this->publisher  = $publisher;
     }
 
-    public function create(VideoId $id, VideoType $type, VideoTitle $title, VideoUrl $url, CourseId $courseId): void
+    public function create(VideoType $type, VideoTitle $title, VideoUrl $url, CourseId $courseId): void
     {
-        $video = Video::create($id, $type, $title, $url, $courseId);
+        $video = Video::create($type, $title, $url, $courseId);
 
         $this->repository->save($video);
 

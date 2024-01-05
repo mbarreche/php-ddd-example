@@ -7,6 +7,7 @@ namespace CodelyTv\Mooc\Videos\Domain;
 use CodelyTv\Mooc\Shared\Domain\Courses\CourseId;
 use CodelyTv\Mooc\Shared\Domain\Videos\VideoUrl;
 use CodelyTv\Shared\Domain\Aggregate\AggregateRoot;
+use CodelyTv\Shared\Domain\ValueObject\Uuid;
 
 final class Video extends AggregateRoot
 {
@@ -26,17 +27,17 @@ final class Video extends AggregateRoot
     }
 
     public static function create(
-        VideoId $id,
         VideoType $type,
         VideoTitle $title,
         VideoUrl $url,
         CourseId $courseId
     ): Video {
-        $video = new self($id, $type, $title, $url, $courseId);
+        $videoId = new VideoId(Uuid::random()->value());
+        $video = new self($videoId, $type, $title, $url, $courseId);
 
         $video->record(
             new VideoCreatedDomainEvent(
-                $id->value(),
+                $videoId->value(),
                 [
                     'type'     => $type->value(),
                     'title'    => $title->value(),
